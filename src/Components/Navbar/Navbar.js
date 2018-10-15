@@ -5,7 +5,8 @@ import './Navbar.css'
 export default class Navbar extends React.Component {
   render() {
     return (
-        <nav id="navigation" class="navbar navbar-expand-lg navbar-light bg-dark">
+        <nav id="navigation" class="navbar navbar-static-top navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
           <Link class="navbar-brand" to="/" id="title">
             <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""/>
               THE WEBSITE
@@ -28,6 +29,7 @@ export default class Navbar extends React.Component {
                 <Link class="nav-link" to="/visiteurs">Visiteurs</Link>
               </li>
             </ul>
+          </div>
           </div>
         </nav>
     );

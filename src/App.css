@@ -23,6 +23,8 @@
 }
 
 #wrapper {
+  padding-top: 20px;
+  margin-top: 60px;
   margin-left: 200px;
   margin-right: 200px;
   height: 900px;
