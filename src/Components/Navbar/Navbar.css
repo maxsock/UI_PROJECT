@@ -1,0 +1,45 @@
+#navigation {
+  background-color: black;
+  padding : 0;
+}
+
+.nav-link {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1em;
+  color: white !important;
+  list-style-type: none;
+  font-weight: 300;
+}
+
+.nav-item.active {
+    background-color: #F2E2CD !important;
+}
+
+.nav-item.active > .nav-link {
+    color: black !important;
+    font-weight: bold;
+}
+
+.nav-item:hover > .nav-link {
+    color: black !important;
+    font-weight: bold;
+}
+
+.nav-item {
+  padding: 10px 10px 10px 10px;
+
+  width: 135px;
+}
+
+.nav-item:hover {
+  background-color: #F2E2CD !important;
+}
+
+#title {
+  margin: 0;
+  margin-right: 30px;
+  color: white;
+  font-size: 2em;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
