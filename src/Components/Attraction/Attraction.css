@@ -3,5 +3,10 @@
   background-color: orange;
   margin:0 auto;
   display: block;
-    width: 70%;
+  margin-bottom: 30px;
+  width: 70%;
+}
+
+.card {
+  margin-top: 400px !important;
 }
