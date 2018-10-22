@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import Navbar from './Components/Navbar/Navbar.js'
-import logo from './logo.svg';
 import './App.css';
 import Router from './Components/Router.js'
 

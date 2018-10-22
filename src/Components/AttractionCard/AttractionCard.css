@@ -1,0 +1,52 @@
+#card {
+  width: 100%;
+  min-width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  background-color: #F2E2CD;
+  margin-bottom: 60px;
+  box-shadow: 2px 2px 2px 2px #605a52;
+}
+
+.material-icons {
+  font-size: 1.5em;
+}
+
+.edit {
+  color: #C5C2C2;
+}
+
+.icon > .edit:hover {
+  color: #767474;
+  cursor: default;
+}
+
+.clear {
+  color: #d76f6f;
+}
+
+.icon > .clear:hover {
+  color: #bd1010;
+  cursor: default;
+}
+
+h3 {
+  padding-top: 10px !important;
+  padding-bottom: 20px;
+  font-family: 'Lato', sans-serif !important;
+  font-weight: 300 !important;
+}
+
+.icon {
+  padding-top: 15px !important;
+}
+
+.info {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.btn {
+  box-shadow: 2px 2px 2px 2px #605a52;
+}
