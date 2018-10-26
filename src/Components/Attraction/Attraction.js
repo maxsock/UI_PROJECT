@@ -34,8 +34,9 @@ export default class Attraction extends React.Component {
   render() {
     return (
     <div class="container">
+    {this.state.data.name}
         <div>
-        <SlideToggle>
+        <SlideToggle collapsed >
           {({onToggle, setCollapsibleElement}) => (
             <div className="my-collapsible">
             <div class="row justify-content-md-center">

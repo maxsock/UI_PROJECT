@@ -20,6 +20,8 @@
   margin-top: 400px !important;
 }
 
+.my-collapsible__content { overflow: hidden;}
+
 form {
   background-color: #d9cbb8 !important;
   height: 250px;
