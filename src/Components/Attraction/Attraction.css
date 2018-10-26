@@ -7,6 +7,24 @@
   width: 70%;
 }
 
+#addNewElement {
+  margin-top: 60px;
+  background-color: orange;
+  margin:0 auto;
+  display: block;
+  margin-bottom: 30px;
+  width: 50%;
+}
+
 .card {
   margin-top: 400px !important;
+}
+
+form {
+  background-color: #d9cbb8 !important;
+  height: 250px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
