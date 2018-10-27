@@ -2,15 +2,26 @@ import React from 'react';
 import './AttractionCard.css'
 
 export default class AttractionCard extends React.Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+          name: props.name,
+          date: props.date,
+          price: props.price};
+
+}
   render() {
+    function update(){
+      this.setState({name:"modifié"}); 
+    }
     return (
         <div id="card" class="container">
           <div class="row title">
             <div class="col col-lg-9">
-            <h3> {this.props.name} </h3>
+            <h3> {this.state.name} </h3>
             </div>
             <div class="col col-lg-1 icon ">
-             <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Modifier">create</i>
+             <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Modifier" onClick={update.bind(this)}>create</i>
              </div>
              <div class="col col-lg-1 icon">
               <i class="material-icons clear" data-toggle="tooltip" data-placement="top" title="Supprimer">clear</i>
@@ -26,10 +37,10 @@ export default class AttractionCard extends React.Component {
             </div>
             <div class="row ">
               <div class="col col-lg-7 info">
-                 {this.props.date}
+                 {this.state.date}
               </div>
               <div class="col col-lg-4 info">
-                 {this.props.price}€
+                 {this.state.price}€
               </div>
           </div>
         </div>

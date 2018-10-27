@@ -20,7 +20,6 @@ export default class Navbar extends React.Component {
         <nav id="navigation" class="navbar navbar-static-top navbar-expand-lg navbar-light bg-dark">
         <div class="container">
           <NavLink class="navbar-brand" to="/" id="title">
-            <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""/>
             MY PARK
           </NavLink>
           <div  class="collapse navbar-collapse" id="navbarNav">

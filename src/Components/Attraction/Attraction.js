@@ -8,33 +8,52 @@ export default class Attraction extends React.Component {
   constructor(props) {
         super(props);
         this.state = {
-          data: [{"id":1,
-            "name":"Roller Coaster",
-            "price":5,
-            "date":"13/05/2004"
-            },
-            {"id":2,
-              "name":"Star Wars Hyperspace",
-              "price":4,
-              "date":"12/04/2007"
-              },
-            {"id":3,
-              "name":"Phantom Manor",
-              "price":4,
-              "date":"24/03/2007"
-              },
-            {"id":4,
-              "name":"Indiana Jones",
-              "price":4,
-              "date":"25/02/2005"
-              }],
+          attractions: data,
+          name:"",
+          price:" ",
+          date:" "
         };
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handlePriceChange = this.handlePriceChange.bind(this);
 
+}
+
+        handleNameChange(event) {
+          this.setState({name: event.target.value});
+        }
+
+        handlePriceChange(event) {
+          this.setState({price: event.target.value});
+        }
+        handleDateChange(event) {
+          this.setState({date: event.target.value});
+        }
+
+      handleSubmit(e) {
+        e.preventDefault();
+        let attractions = this.state.attractions;
+        let newItem = {
+          "name":this.state.name,
+          "price":this.state.price,
+          "date":this.state.date};
+          attractions.push(newItem)
+          this.setState({attractions: attractions});
+        this.setState({name:"",price:"",date:""});
     }
+
   render() {
+    let attractions;
+    attractions = this.state.attractions.map(attraction => {
+      return(
+        <div class="col col-lg-5">
+          <AttractionCard class="card" name={attraction.name} price={attraction.price} date={attraction.date} />
+        </div>
+      )
+    })
+
     return (
     <div class="container">
-    {this.state.data.name}
         <div>
         <SlideToggle collapsed >
           {({onToggle, setCollapsibleElement}) => (
@@ -44,17 +63,17 @@ export default class Attraction extends React.Component {
             </div>
       <div className="my-collapsible__content" ref={setCollapsibleElement}>
         <div className="my-collapsible__content-inner">
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
 
         <div class="form-group">
         <label for="nomdelattraction">Nom de l'attraction</label>
-        <input type="text" class="form-control" id="nomdelattraction" name="nomdelattraction" placeholder="Le Grand Huit"/>
+        <input type="text" class="form-control" value={this.state.name} onChange={this.handleNameChange} placeholder="Le Grand Huit" />
         </div>
 
         <div class="form-row">
         <div class="form-group col-md-6">
         <label for="datedelinstallation">Date de l'installation</label>
-        <input type="date" class="form-control" id="datedelinstallation" placeholder="Email"/>
+        <input type="date" class="form-control" value={this.state.date} onChange={this.handleDateChange} />
         </div>
 
         <div class="form-group col-md-6">
@@ -64,7 +83,7 @@ export default class Attraction extends React.Component {
         <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">€</span>
         </div>
-        <input type="number" class="form-control" id="inputPassword4" placeholder="0"/>
+        <input type="number" class="form-control" value={this.state.price} onChange={this.handlePriceChange}  placeholder="0"/>
         </div>
 
         </div>
@@ -80,21 +99,14 @@ export default class Attraction extends React.Component {
 
             </div>
             <div class="row  justify-content-around">
-              <DisplayCards/>
+
+              {attractions}
             </div>
           </div>
 
     );
-    function DisplayCards(){
-      var cards = []
-      data.map(function(attraction){
-        cards.push(<div class="col col-lg-5">
-          <AttractionCard class="card" name={attraction.name} price={attraction.price} date={attraction.date} />
-        </div>)
-          })
 
-      return cards;
-    }
+
 
   }
 
