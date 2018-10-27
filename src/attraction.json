@@ -1,21 +1,25 @@
 [{"id":1,
   "name":"Roller Coaster",
   "price":5,
-  "date":"13/05/2004"
+  "date":"13/05/2004",
+  "deleted":false
   },
   {"id":2,
-    "name":"Star Wars Hyperspace",
+    "name":"Star Wars",
     "price":4,
-    "date":"12/04/2007"
+    "date":"12/04/2007",
+    "deleted":false
     },
   {"id":3,
     "name":"Phantom Manor",
     "price":4,
-    "date":"24/03/2007"
+    "date":"24/03/2007",
+    "deleted":false
     },
   {"id":4,
     "name":"Indiana Jones",
     "price":4,
-    "date":"25/02/2005"
+    "date":"25/02/2005",
+    "deleted":false
     }
 ]

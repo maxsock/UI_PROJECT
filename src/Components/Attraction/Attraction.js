@@ -3,6 +3,10 @@ import './Attraction.css'
 import AttractionCard from '../AttractionCard/AttractionCard.js'
 import data from '../../attraction.json'
 import { SlideToggle } from 'react-slide-toggle';
+import ReactNotify from 'react-notify';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+const uuidv4 = require('uuid/v4');
 
 export default class Attraction extends React.Component {
   constructor(props) {
@@ -11,13 +15,16 @@ export default class Attraction extends React.Component {
           attractions: data,
           name:"",
           price:" ",
-          date:" "
+          date:" ",
         };
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
 
-}
+
+      }
 
         handleNameChange(event) {
           this.setState({name: event.target.value});
@@ -40,16 +47,57 @@ export default class Attraction extends React.Component {
           attractions.push(newItem)
           this.setState({attractions: attractions});
         this.setState({name:"",price:"",date:""});
+      this.refs.notificator.success("Succès", "Attraction ajoutée !", 4000);
     }
+    deleteItem(id){
+      let attractions;
+      attractions = this.state.attractions
+      for(let i = 0; i< attractions.length; ++i)
+        if(attractions[i].id == id)
+          attractions[i].deleted = true;
+
+      this.setState({attractions: attractions});
+    }
+    updateItem(id,name,date,price){
+      let attractions;
+      attractions = this.state.attractions
+
+      for(let i = 0; i< attractions.length; ++i)
+        if(attractions[i].id == id){
+          attractions[i].name = name;
+          attractions[i].date = date;
+          attractions[i].price = price;
+        }
+      this.setState({attractions: attractions});
+    }
+
+    submit = (id,name,date,price) => {
+   confirmAlert({
+     message: 'Etes-vous sûr de vouloir supprimer cette attraction ?',
+     buttons: [
+       {
+         label: 'Oui',
+         onClick: () => this.deleteItem(id,name,date,price)
+       },
+       {
+         label: 'Non',
+         
+       }
+     ]
+   })
+ };
+
 
   render() {
     let attractions;
     attractions = this.state.attractions.map(attraction => {
-      return(
-        <div class="col col-lg-5">
-          <AttractionCard class="card" name={attraction.name} price={attraction.price} date={attraction.date} />
-        </div>
-      )
+      if(!attraction.deleted){
+        return(
+          <div class="col col-lg-5">
+            <AttractionCard updateItem={this.updateItem} deleteItem={this.submit} class="card" id={attraction.id} name={attraction.name} price={attraction.price} date={attraction.date} />
+          </div>
+        )
+      }
     })
 
     return (
@@ -96,19 +144,12 @@ export default class Attraction extends React.Component {
     </div>
   )}
 </SlideToggle>
-
             </div>
             <div class="row  justify-content-around">
-
-              {attractions}
+                {attractions}
             </div>
+            <ReactNotify ref='notificator'/>
           </div>
-
     );
-
-
-
   }
-
-
 }

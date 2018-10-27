@@ -5,14 +5,21 @@ export default class AttractionCard extends React.Component {
   constructor(props) {
         super(props);
         this.state = {
+          id: props.id,
           name: props.name,
           date: props.date,
-          price: props.price};
+          price: props.price,
+      };
 
 }
   render() {
     function update(){
-      this.setState({name:"modifié"}); 
+      this.setState({name:"modifié",date:this.state.date,price:this.state.price})
+      this.props.updateItem(this.state.id,"modifié", this.state.date, this.state.price);
+    }
+    function deleteElement(){
+      this.setState({deleted:true});
+      this.props.deleteItem(this.state.id);
     }
     return (
         <div id="card" class="container">
@@ -24,7 +31,7 @@ export default class AttractionCard extends React.Component {
              <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Modifier" onClick={update.bind(this)}>create</i>
              </div>
              <div class="col col-lg-1 icon">
-              <i class="material-icons clear" data-toggle="tooltip" data-placement="top" title="Supprimer">clear</i>
+              <i class="material-icons clear" data-toggle="tooltip" data-placement="top" title="Supprimer" onClick={deleteElement.bind(this)}>clear</i>
               </div>
              </div>
               <div class="row ">
@@ -45,5 +52,6 @@ export default class AttractionCard extends React.Component {
           </div>
         </div>
     );
+
   }
 }
