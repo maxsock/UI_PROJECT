@@ -1,28 +1,30 @@
 import React from 'react';
 import './AttractionCard.css'
 
-export default class AttractionCard extends React.Component {
+export default class MaintenanceCard extends React.Component {
   constructor(props) {
         super(props);
         this.state = {
           id: props.id,
-          name: props.name,
-          date: props.date,
-          price: props.price,
+          attractionName: props.attractionName,
+          techName: props.techName,
+          date1: props.date1,
+          date2: props.date2,
           modified: false
       };
 
 }
 componentWillReceiveProps(){
   this.setState({id: this.props.id,
-  name: this.props.name,
-  date: this.props.date,
-  price: this.props.price})
+  attractionName: this.props.attractionName,
+  techName: this.props.techName,
+  date1: this.props.date1,
+  date2: this.props.date2})
 }
   render() {
     function update(){
-      this.setState({name:this.state.name,date:this.state.date,price:this.state.price})
-      this.props.updateItem(this.state.id,this.state.name, this.state.date, this.state.price);
+      this.setState({attractionName:this.state.attractionName,techName:this.state.techName,date1:this.state.date1,date2:this.state.date2})
+      this.props.updateItem(this.state.id,this.state.attractionName, this.state.techName, this.state.date1,this.state.date2);
     }
     function deleteElement(){
       this.setState({deleted:true});
@@ -32,7 +34,7 @@ componentWillReceiveProps(){
         <div id="card" class="container">
           <div class="row title">
             <div class="col col-lg-9">
-            <h3> {this.state.name} </h3>
+            <h3> {this.state.attractionName} </h3>
             </div>
             <div class="col col-lg-1 icon ">
              <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Modifier" onClick={update.bind(this)}>create</i>
@@ -42,19 +44,19 @@ componentWillReceiveProps(){
               </div>
              </div>
               <div class="row ">
-               <div class="col col-lg-7">
-                  Date dinstallation:
+               <div class="col col-lg-6">
+                  Dernière maintenance:
                </div>
-               <div class="col col-lg-4">
-                  Prix:
+               <div class="col col-lg-6">
+                  Prochaine maintenance:
                </div>
             </div>
             <div class="row ">
-              <div class="col col-lg-7 info">
-                 {this.state.date}
+              <div class="col col-lg-6 info">
+                 {this.state.date1}
               </div>
-              <div class="col col-lg-4 info">
-                 {this.state.price}€
+              <div class="col col-lg-6 info">
+                 {this.state.date2}
               </div>
           </div>
         </div>

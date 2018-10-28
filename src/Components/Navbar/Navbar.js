@@ -19,9 +19,9 @@ export default class Navbar extends React.Component {
     return (
         <nav id="navigation" class="navbar navbar-static-top navbar-expand-lg navbar-light bg-dark">
         <div class="container">
-          <NavLink class="navbar-brand" to="/" id="title">
+          <div class="navbar-brand" to="/" id="title">
             MY PARK
-          </NavLink>
+          </div>
           <div  class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item" >
@@ -37,7 +37,7 @@ export default class Navbar extends React.Component {
                 <NavLink activeClassName = "nav-link active" className="nav-link"  to="/maintenance">Maintenance</NavLink>
               </li>
               <li class="nav-item">
-                <NavLink  activeClassName = "nav-link active" className="nav-link"  to="/visiteurs">Visiteurs</NavLink>
+                <NavLink  activeClassName = "nav-link active" className="nav-link"  to="/stats">Visiteurs</NavLink>
               </li>
             </ul>
           </div>

@@ -6,23 +6,46 @@ import { SlideToggle } from 'react-slide-toggle';
 import ReactNotify from 'react-notify';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const uuidv4 = require('uuid/v4');
+
 
 export default class Attraction extends React.Component {
   constructor(props) {
         super(props);
         this.state = {
           attractions: data,
+          id:"",
           name:"",
           price:" ",
           date:" ",
+          modal: false,
+          modified:false,
         };
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handlePriceChange = this.handlePriceChange.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
+        this.toggle = this.toggle.bind(this);
 
+      }
+      toggle(id,name,date,price) {
+        this.setState({
+          modal: !this.state.modal
+        });
+        let attractions;
+        attractions = this.state.attractions
+
+        for(let i = 0; i< attractions.length; ++i)
+          if(attractions[i].id == id){
+            this.setState({
+              id:attractions[i].id,
+              name:attractions[i].name,
+              price:attractions[i].price,
+              date:attractions[i].date
+            })
+          }
 
       }
 
@@ -53,22 +76,52 @@ export default class Attraction extends React.Component {
       let attractions;
       attractions = this.state.attractions
       for(let i = 0; i< attractions.length; ++i)
-        if(attractions[i].id == id)
+        if(attractions[i].id == id){
           attractions[i].deleted = true;
+          attractions[i].modified = false;
+        }
 
       this.setState({attractions: attractions});
+      this.refs.notificator.success("Succès", "Attraction supprimée !", 4000);
     }
-    updateItem(id,name,date,price){
+
+    componentDidMount() {
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    if(this.state.modified){
+          this.toggle();
+          this.updateItem();
+          this.setState({modified:false})
+          this.refs.notificator.success("Succès", "Attraction modifiée !", 4000);
+    }
+
+  }
+
+    updateItem(){
+      this.setState({modified:true})
       let attractions;
       attractions = this.state.attractions
 
       for(let i = 0; i< attractions.length; ++i)
-        if(attractions[i].id == id){
-          attractions[i].name = name;
-          attractions[i].date = date;
-          attractions[i].price = price;
+        if(attractions[i].id == this.state.id){
+          attractions[i].name = this.state.name;
+          attractions[i].date = this.state.date;
+          attractions[i].price = this.state.price;
+
+
         }
       this.setState({attractions: attractions});
+
+
     }
 
     submit = (id,name,date,price) => {
@@ -77,11 +130,11 @@ export default class Attraction extends React.Component {
      buttons: [
        {
          label: 'Oui',
-         onClick: () => this.deleteItem(id,name,date,price)
+         onClick: () => this.deleteItem(id)
        },
        {
          label: 'Non',
-         
+
        }
      ]
    })
@@ -91,14 +144,17 @@ export default class Attraction extends React.Component {
   render() {
     let attractions;
     attractions = this.state.attractions.map(attraction => {
-      if(!attraction.deleted){
+
+    if(!attraction.deleted){
         return(
           <div class="col col-lg-5">
-            <AttractionCard updateItem={this.updateItem} deleteItem={this.submit} class="card" id={attraction.id} name={attraction.name} price={attraction.price} date={attraction.date} />
+            <AttractionCard updateItem={this.toggle} deleteItem={this.submit} class="card" id={attraction.id} name={attraction.name} price={attraction.price} date={attraction.date} />
           </div>
         )
       }
     })
+
+
 
     return (
     <div class="container">
@@ -111,7 +167,7 @@ export default class Attraction extends React.Component {
             </div>
       <div className="my-collapsible__content" ref={setCollapsibleElement}>
         <div className="my-collapsible__content-inner">
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)} class="form">
 
         <div class="form-group">
         <label for="nomdelattraction">Nom de l'attraction</label>
@@ -146,6 +202,41 @@ export default class Attraction extends React.Component {
 </SlideToggle>
             </div>
             <div class="row  justify-content-around">
+            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}  >
+          <ModalHeader toggle={this.toggle}>Modifier une attraction</ModalHeader>
+          <ModalBody >
+          <form onSubmit={this.handleSubmit.bind(this)}>
+
+          <div class="form-group">
+          <label for="nomdelattraction">Nom de l'attraction</label>
+          <input type="text" class="form-control" value={this.state.name} onChange={this.handleNameChange} placeholder="Le Grand Huit" />
+          </div>
+
+          <div class="form-row">
+          <div class="form-group col-md-6">
+          <label for="datedelinstallation">Date de l'installation</label>
+          <input type="date" class="form-control" value={this.state.date} onChange={this.handleDateChange} />
+          </div>
+
+          <div class="form-group col-md-6">
+          <label for="inputPassword4">Prix</label>
+          <div class="input-group input-group-default mb-3">
+
+          <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-default">€</span>
+          </div>
+          <input type="number" required = "required" class="form-control" value={this.state.price} onChange={this.handlePriceChange}  placeholder="0"/>
+          </div>
+          </div>
+          </div>
+          </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit" color="primary" class="modalButton" onClick={this.updateItem}>Modifier</Button>{' '}
+            <Button color="secondary" onClick={this.toggle}>Annuler</Button>
+          </ModalFooter>
+        </Modal>
+
                 {attractions}
             </div>
             <ReactNotify ref='notificator'/>

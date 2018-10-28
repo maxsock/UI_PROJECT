@@ -1,28 +1,28 @@
 import React from 'react';
 import './AttractionCard.css'
 
-export default class AttractionCard extends React.Component {
+export default class BatimentCard extends React.Component {
   constructor(props) {
         super(props);
         this.state = {
           id: props.id,
           name: props.name,
           date: props.date,
-          price: props.price,
           modified: false
       };
 
 }
+
 componentWillReceiveProps(){
   this.setState({id: this.props.id,
   name: this.props.name,
   date: this.props.date,
-  price: this.props.price})
+  })
 }
   render() {
     function update(){
-      this.setState({name:this.state.name,date:this.state.date,price:this.state.price})
-      this.props.updateItem(this.state.id,this.state.name, this.state.date, this.state.price);
+      this.setState({name:this.state.name,date:this.state.date})
+      this.props.updateItem(this.state.id,this.state.name, this.state.date);
     }
     function deleteElement(){
       this.setState({deleted:true});
@@ -42,20 +42,17 @@ componentWillReceiveProps(){
               </div>
              </div>
               <div class="row ">
-               <div class="col col-lg-7">
+               <div class="col col-lg-5">
                   Date dinstallation:
                </div>
-               <div class="col col-lg-4">
-                  Prix:
+               <div class="col col-lg-6 info">
+                  {this.state.date}
                </div>
+
             </div>
             <div class="row ">
-              <div class="col col-lg-7 info">
-                 {this.state.date}
-              </div>
-              <div class="col col-lg-4 info">
-                 {this.state.price}€
-              </div>
+
+
           </div>
         </div>
     );

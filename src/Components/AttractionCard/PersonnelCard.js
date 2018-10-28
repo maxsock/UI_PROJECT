@@ -7,8 +7,10 @@ export default class AttractionCard extends React.Component {
         this.state = {
           id: props.id,
           name: props.name,
-          date: props.date,
-          price: props.price,
+          fname:props.fname,
+          age: props.age,
+          job: props.job,
+          salary:props.salary,
           modified: false
       };
 
@@ -16,8 +18,10 @@ export default class AttractionCard extends React.Component {
 componentWillReceiveProps(){
   this.setState({id: this.props.id,
   name: this.props.name,
-  date: this.props.date,
-  price: this.props.price})
+  fname:this.props.fname,
+  age: this.props.age,
+  job: this.props.job,
+  salary:this.props.salary,})
 }
   render() {
     function update(){
@@ -32,8 +36,9 @@ componentWillReceiveProps(){
         <div id="card" class="container">
           <div class="row title">
             <div class="col col-lg-9">
-            <h3> {this.state.name} </h3>
+            <h3> {this.state.fname} {this.state.name} ({this.state.age})</h3>
             </div>
+
             <div class="col col-lg-1 icon ">
              <i class="material-icons edit" data-toggle="tooltip" data-placement="top" title="Modifier" onClick={update.bind(this)}>create</i>
              </div>
@@ -43,18 +48,18 @@ componentWillReceiveProps(){
              </div>
               <div class="row ">
                <div class="col col-lg-7">
-                  Date dinstallation:
+                  Fonction:
                </div>
                <div class="col col-lg-4">
-                  Prix:
+                  Salaire:
                </div>
             </div>
             <div class="row ">
               <div class="col col-lg-7 info">
-                 {this.state.date}
+                 {this.state.job}
               </div>
               <div class="col col-lg-4 info">
-                 {this.state.price}€
+                 {this.state.salary}€/mois
               </div>
           </div>
         </div>
